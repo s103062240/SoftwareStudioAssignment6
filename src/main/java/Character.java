@@ -1,6 +1,7 @@
 package main.java;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -35,6 +36,9 @@ public class Character {
 	
 	private MainApplet parent;
 	
+	private Dimension originalLocation;
+	private Dimension currentLocation;
+	
 	private String name;
 	private int color;
 
@@ -44,10 +48,12 @@ public class Character {
 	 * @param color display color
 	 * @param parent PApplet to draw at
 	 */
-	public Character(String name, int color, MainApplet parent) {
+	public Character(String name, int color, Dimension location, MainApplet parent) {
 		this.name = name;
 		this.color = color;
 		this.parent = parent;
+		this.originalLocation = location;
+		this.currentLocation = location;
 		edges = new Vector<>();
 	}
 

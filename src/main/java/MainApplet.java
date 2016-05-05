@@ -1,6 +1,7 @@
 package main.java;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -56,7 +57,9 @@ public class MainApplet extends PApplet{
 				JSONObject item = nodes.getJSONObject(j);
 				String name = item.getString("name");
 				int color = unhex(item.getString("colour").substring(1));
-				networks.get(i).add(new Character(name, color, this));
+				int x = (j / 4) * 20 + 10;
+				int y = (j % 4) * 20 + 10;
+				networks.get(i).add(new Character(name, color, new Dimension(x, y), this));
 			}
 			JSONArray links = jsonObject.getJSONArray("links");
 			for (int j = 0; j < links.size(); ++j) {
