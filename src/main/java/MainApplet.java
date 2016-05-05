@@ -57,6 +57,16 @@ public class MainApplet extends PApplet{
 		for (Character character : networks.get(episode)) {
 			character.display();
 		}
+		for (Character character : networks.get(episode)) {
+			if (mouseX >= character.getX() - Character.CIRCLESIZE / 2 &&
+					mouseX <= character.getX() + Character.CIRCLESIZE / 2 &&
+					mouseY >= character.getY() - Character.CIRCLESIZE / 2 &&
+					mouseY <= character.getY() + Character.CIRCLESIZE / 2) {
+				fill(0);
+				textSize(20);
+				text(character.getName(), mouseX, mouseY + 20, 200, 100);
+			}
+		}
 	}
 
 	/**

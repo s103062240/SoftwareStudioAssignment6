@@ -76,4 +76,35 @@ public class Character {
 		edges.add(new Edge(dst, w));
 	}
 	
+	/**
+	 * return character's name
+	 * @return name of character
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * get current location x-axis
+	 * @return x-axis
+	 */
+	public int getX() {
+		return currentLocation.width;
+	}
+	
+	/**
+	 * get current location y-axis
+	 * @return y-axis
+	 */
+	public int getY() {
+		return currentLocation.height;
+	}
+	
+	/**
+	 * reset location, make location to original location
+	 */
+	public void resetLocation() {
+		currentLocation = originalLocation;
+	}
+	
 }
