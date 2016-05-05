@@ -3,6 +3,7 @@ package main.java;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.ResourceBundle.Control;
 
 import controlP5.Button;
@@ -12,6 +13,7 @@ import controlP5.ControlP5;
 import java.util.Vector;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PFont;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -88,6 +90,16 @@ public class MainApplet extends PApplet{
 				textSize(20);
 				text(character.getName(), mouseX, mouseY + 20, 200, 100);
 			}
+		}
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == PConstants.RIGHT) {
+			episode = (episode + 1) % 7;
+		}
+		else if (e.getKeyCode() == PConstants.LEFT) {
+			episode = (episode + 7 - 1) % 7;
 		}
 	}
 
