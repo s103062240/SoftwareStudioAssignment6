@@ -33,7 +33,7 @@ public class MainApplet extends PApplet{
 	private Vector<Vector<Character>> networks;
 	private int episode;
 	
-	private ControlP5 cp5; 
+	private ControlP5 cp5; 	
 	
 	/**
 	 * setup
@@ -46,14 +46,21 @@ public class MainApplet extends PApplet{
 		ControlFont cFont = new ControlFont(pFont, 32);
 		Button bAddAll = cp5.addButton("buttonAddAll");
 		bAddAll.setLabel("Add All");
+		bAddAll.getCaptionLabel().setFont(cFont);
+		bAddAll.setColorBackground(color(120,120,120));
+		bAddAll.setColorForeground(color(255,140,0));
+		bAddAll.setColorActive(color(200,90,0));
 		bAddAll.setSize(200, 80);
 		bAddAll.setPosition(950, 30);
-		bAddAll.getCaptionLabel().setFont(cFont);
+		
 		Button bCleanAll = cp5.addButton("buttonCleanAll");
 		bCleanAll.setLabel("Clean All");
+		bCleanAll.getCaptionLabel().setFont(cFont);
+		bCleanAll.setColorBackground(color(120,120,120));
+		bCleanAll.setColorForeground(color(255,140,0));
+		bCleanAll.setColorActive(color(200,90,0));
 		bCleanAll.setSize(200, 80);
 		bCleanAll.setPosition(950, 140);
-		bCleanAll.getCaptionLabel().setFont(cFont);
 		networks = new Vector<>();
 		for (int i = 0; i < 7; ++i) {
 			networks.add(new Vector<Character>());
