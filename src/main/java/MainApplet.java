@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ResourceBundle.Control;
 
 import controlP5.Button;
 import controlP5.ControlFont;
 import controlP5.ControlP5;
+import de.looksgood.ani.Ani;
 
 import java.util.Vector;
 
@@ -34,6 +36,8 @@ public class MainApplet extends PApplet{
 	private int episode;
 	
 	private ControlP5 cp5; 	
+	
+	private Character mouseTarget;
 	
 	/**
 	 * setup
@@ -89,10 +93,7 @@ public class MainApplet extends PApplet{
 			character.display();
 		}
 		for (Character character : networks.get(episode)) {
-			if (mouseX >= character.getX() - Character.CIRCLESIZE / 2 &&
-					mouseX <= character.getX() + Character.CIRCLESIZE / 2 &&
-					mouseY >= character.getY() - Character.CIRCLESIZE / 2 &&
-					mouseY <= character.getY() + Character.CIRCLESIZE / 2) {
+			if (getDistance(character) <= Character.CIRCLESIZE / 2) {
 				fill(0);
 				textSize(20);
 				text(character.getName(), mouseX, mouseY + 20, 200, 100);
@@ -100,6 +101,31 @@ public class MainApplet extends PApplet{
 		}
 	}
 	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		for (Character character : networks.get(episode)) {
+			if (getDistance(character) <= Character.CIRCLESIZE / 2) {
+				mouseTarget = character;
+				return;
+			}
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (mouseTarget != null) {
+			mouseTarget.resetLocation();
+		}
+		mouseTarget = null;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (mouseTarget != null) {
+			mouseTarget.setLocation(new Dimension(e.getX(), e.getY()));
+		}
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == PConstants.RIGHT) {
@@ -134,6 +160,17 @@ public class MainApplet extends PApplet{
 				networks.get(i).get(src).addEdge(networks.get(i).get(dst), w);
 			}
 		}
+	}
+	
+	/**
+	 * get distance between mouse position and character
+	 * @param character character to calculate distance
+	 * @return distance
+	 */
+	private long getDistance(Character character) {
+		int dis = (mouseX - character.getX()) * (mouseX - character.getX()) +
+				  (mouseY - character.getY()) * (mouseY - character.getY()); 
+		return Math.round(Math.sqrt((double)dis));
 	}
 
 }
