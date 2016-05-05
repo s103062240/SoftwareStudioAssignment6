@@ -1,6 +1,11 @@
 package main.java;
 
+import java.awt.Color;
+import java.util.Vector;
+
 import processing.core.PApplet;
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 
 /**
 * This class is for sketching outcome using Processing
@@ -8,25 +13,51 @@ import processing.core.PApplet;
 */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
-	private String path = "main/resources/";
-	private String file = "starwars-episode-1-interactions.json";
 	
 	private final static int width = 1200, height = 650;
 	
-	public void setup() {
+	private final String pathPrefix = "res/";
+	private String[] files;
 
+	private Vector<Vector<Character>> networks;
+	
+	public void setup() {
 		size(width, height);
 		smooth();
+		networks = new Vector<>();
+		for (int i = 0; i < 7; ++i) {
+			networks.add(new Vector<Character>());
+		}
+		files = new String[7];
+		for (int i = 0; i < files.length; ++i) {
+			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
+		}
 		loadData();
-		
 	}
 
 	public void draw() {
 
 	}
 
-	private void loadData(){
-
+	private void loadData() {
+		for (int i = 0; i < 7; ++i) {
+			JSONObject jsonObject = loadJSONObject(files[i]);
+			JSONArray nodes = jsonObject.getJSONArray("nodes");
+			for (int j = 0; j < nodes.size(); ++j) {
+				JSONObject item = nodes.getJSONObject(j);
+				String name = item.getString("name");
+				int color = unhex(item.getString("colour").substring(1));
+				networks.get(i).add(new Character(name, color, this));
+			}
+			JSONArray links = jsonObject.getJSONArray("links");
+			for (int j = 0; j < links.size(); ++j) {
+				JSONObject item = links.getJSONObject(j);
+				int src = item.getInt("source");
+				int dst = item.getInt("target");
+				int w = item.getInt("value");
+				networks.get(i).get(src).addEdge(networks.get(i).get(dst), w);
+			}
+		}
 	}
 
 }

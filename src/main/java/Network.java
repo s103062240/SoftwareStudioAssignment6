@@ -12,13 +12,11 @@ public class Network {
 	
 	private PApplet parent;
 
-	public Network(PApplet parent){
-
+	public Network(PApplet parent) {
 		this.parent = parent;
-		
 	}
 
-	public void display(){
+	public void display() {
 		
 	}
 	

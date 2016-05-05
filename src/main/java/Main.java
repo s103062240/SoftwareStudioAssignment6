@@ -1,6 +1,8 @@
 package main.java;
 import javax.swing.JFrame;
 
+import processing.core.PApplet;
+
 /**
 * This class is the main class of the program.
 * You can customize different window width and height for your program here. 
@@ -14,7 +16,7 @@ public class Main extends JFrame{
 	
 	private final static int windowWidth = 1200, windowHeight = 670;
 	
-	public static void main(String [] args){
+	public static void main(String [] args) {
 		
 		MainApplet applet = new MainApplet();
 		applet.init();
