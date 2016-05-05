@@ -96,7 +96,7 @@ public class MainApplet extends PApplet{
 			character.display();
 		}
 		for (Character character : networks.get(episode)) {
-			if (getDistance(character) <= Character.CIRCLESIZE / 2) {
+			if (getDistance(character, mouseX, mouseY) <= Character.CIRCLESIZE / 2) {
 				fill(0);
 				textSize(20);
 				text(character.getName(), mouseX, mouseY + 20, 200, 100);
@@ -108,7 +108,7 @@ public class MainApplet extends PApplet{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for (Character character : networks.get(episode)) {
-			if (getDistance(character) <= Character.CIRCLESIZE / 2) {
+			if (getDistance(character, mouseX, mouseY) <= Character.CIRCLESIZE / 2) {
 				mouseTarget = character;
 				return;
 			}
@@ -117,15 +117,13 @@ public class MainApplet extends PApplet{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (mouseTarget != null) {
-			if (getDistanceToCircle(mouseTarget) <= 550 / 2) {
-				mouseTarget.setInCircle(true);
-				graph.addCharacter(mouseTarget);
-			}
-			else {
-				mouseTarget.setInCircle(false);
-				graph.removeCharacter(mouseTarget);
-			}
+		if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= 550 / 2) {
+			mouseTarget.setInCircle(true);
+			graph.addCharacter(mouseTarget);
+		}
+		else {
+			mouseTarget.setInCircle(false);
+			graph.removeCharacter(mouseTarget);
 		}
 		mouseTarget = null;
 	}
@@ -178,9 +176,9 @@ public class MainApplet extends PApplet{
 	 * @param character character to calculate distance
 	 * @return distance
 	 */
-	private long getDistance(Character character) {
-		int dis = (mouseX - character.getX()) * (mouseX - character.getX()) +
-				  (mouseY - character.getY()) * (mouseY - character.getY()); 
+	private long getDistance(Character character, int x, int y) {
+		int dis = (x - character.getX()) * (x - character.getX()) +
+				  (y - character.getY()) * (y - character.getY()); 
 		return Math.round(Math.sqrt((double)dis));
 	}
 	
@@ -189,9 +187,9 @@ public class MainApplet extends PApplet{
 	 * @param character character to calculate distance
 	 * @return distance
 	 */
-	private long getDistanceToCircle(Character character) {
-		int dis = (mouseX - 600) * (mouseX - 600) +
-				  (mouseY - 350) * (mouseY - 350);
+	private long getDistanceToCircle(Character character, int x, int y) {
+		int dis = (x - 600) * (x - 600) +
+				  (y - 350) * (y - 350);
 		return Math.round(Math.sqrt((double)dis));
 	}
 
