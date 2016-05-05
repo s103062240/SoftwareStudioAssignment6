@@ -14,7 +14,7 @@ import processing.core.PApplet;
 @SuppressWarnings("serial")
 public class Main extends JFrame{
 	
-	private final static int windowWidth = 1200, windowHeight = 670;
+	private final static int windowWidth = 1200, windowHeight = 700;
 	
 	/**
 	 * program entry

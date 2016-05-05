@@ -2,6 +2,7 @@ package main.java;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -46,13 +47,16 @@ public class MainApplet extends PApplet{
 	 */
 	public void draw() {
 		background(255);
-		for (Character character : networks.get(episode)) {
-			character.display();
-		}
 		fill(255);
 		stroke(255, 220, 0);
 		strokeWeight(5.0f);
 		ellipse(600, 350, 550, 550);
+		fill(0);
+		textSize(40);
+		text("Star Wars " + (episode + 1), 480, 10, 300, 100);
+		for (Character character : networks.get(episode)) {
+			character.display();
+		}
 	}
 
 	/**
