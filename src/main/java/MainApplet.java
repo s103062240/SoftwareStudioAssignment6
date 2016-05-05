@@ -75,7 +75,7 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < files.length; ++i) {
 			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
 		}
-		graph = new Network(this);
+		graph = new Network(this, networks);
 		episode = 0;
 		loadData();
 	}
@@ -102,7 +102,7 @@ public class MainApplet extends PApplet{
 				text(character.getName(), mouseX, mouseY + 20, 200, 100);
 			}
 		}
-		graph.display();
+		graph.display(episode);
 	}
 	
 	@Override
@@ -120,11 +120,9 @@ public class MainApplet extends PApplet{
 		if (mouseTarget != null) {
 			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= 550 / 2) {
 				mouseTarget.setInCircle(true);
-				graph.addCharacter(mouseTarget);
 			}
 			else {
 				mouseTarget.setInCircle(false);
-				graph.removeCharacter(mouseTarget);
 			}
 		}
 		mouseTarget = null;

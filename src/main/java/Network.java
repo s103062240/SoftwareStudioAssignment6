@@ -14,28 +14,17 @@ public class Network {
 	
 	private PApplet parent;
 	
-	private Vector<Character> characters;
-
-	public Network(PApplet parent) {
+	private Vector<Vector<Character>> networks;
+	
+	public Network(PApplet parent, Vector<Vector<Character>> networks) {
 		this.parent = parent;
-		characters = new Vector<>();
+		this.networks = networks;
 	}
 
-	public void display() {
-		for (Character character : characters) {
-			character.displayEdge();
-		}
-	}
-	
-	public void addCharacter(Character character) {
-		characters.add(character);
-	}
-	
-	public void removeCharacter(Character character) {
-		int index;
-		for (index = 0; index < characters.size(); ++index) {
-			if (characters.get(index) == character) {
-				characters.remove(index);
+	public void display(int episode) {
+		for (Character character : networks.get(episode)) {
+			if (character.isInCircle()) {
+				character.displayEdge();
 			}
 		}
 	}
