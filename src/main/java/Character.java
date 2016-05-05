@@ -17,7 +17,7 @@ public class Character {
 		
 		private int weight;
 		
-		public Edge(Character node, int weight) {
+		private Edge(Character node, int weight) {
 			this.node = node;
 			this.weight = weight;
 		}
