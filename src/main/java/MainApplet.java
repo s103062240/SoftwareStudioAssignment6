@@ -3,9 +3,16 @@ package main.java;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ResourceBundle.Control;
+
+import controlP5.Button;
+import controlP5.ControlFont;
+import controlP5.ControlP5;
+
 import java.util.Vector;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -24,12 +31,27 @@ public class MainApplet extends PApplet{
 	private Vector<Vector<Character>> networks;
 	private int episode;
 	
+	private ControlP5 cp5; 
+	
 	/**
 	 * setup
 	 */
 	public void setup() {
 		size(width, height);
 		smooth();
+		cp5 = new ControlP5(this);
+		PFont pFont = createFont(getFont().getName(), 32, true);
+		ControlFont cFont = new ControlFont(pFont, 32);
+		Button bAddAll = cp5.addButton("buttonAddAll");
+		bAddAll.setLabel("Add All");
+		bAddAll.setSize(200, 80);
+		bAddAll.setPosition(950, 30);
+		bAddAll.getCaptionLabel().setFont(cFont);
+		Button bCleanAll = cp5.addButton("buttonCleanAll");
+		bCleanAll.setLabel("Clean All");
+		bCleanAll.setSize(200, 80);
+		bCleanAll.setPosition(950, 140);
+		bCleanAll.getCaptionLabel().setFont(cFont);
 		networks = new Vector<>();
 		for (int i = 0; i < 7; ++i) {
 			networks.add(new Vector<Character>());
