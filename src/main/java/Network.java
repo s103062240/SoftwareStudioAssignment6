@@ -14,6 +14,8 @@ public class Network {
 	
 	private PApplet parent;
 	
+	private int size;
+	
 	private Vector<Vector<Character>> networks;
 	
 	public Network(PApplet parent, Vector<Vector<Character>> networks) {
@@ -27,6 +29,22 @@ public class Network {
 				character.displayEdge();
 			}
 		}
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
+	public void addSize() {
+		this.size++;
+	}
+	
+	public void substractSize() {
+		this.size--;
 	}
 	
 }
