@@ -74,6 +74,22 @@ public class Character {
 	}
 	
 	/**
+	 * draw link between another characters
+	 */
+	public void displayEdge() {
+		for (Edge item : edges) {
+			if (item.node.inCircle) {
+				parent.strokeWeight(1.0f);
+				parent.fill(0);
+				parent.line(getX(),
+							getY(),
+							item.node.getX(),
+							item.node.getY());
+			}
+		}
+	}
+	
+	/**
 	 * add an edge to destination, weight w
 	 * @param dst destination character
 	 * @param w	weight

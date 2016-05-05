@@ -32,6 +32,8 @@ public class MainApplet extends PApplet{
 	private final String pathPrefix = "res/";
 	private String[] files;
 
+	private Network graph;
+	
 	private Vector<Vector<Character>> networks;
 	private int episode;
 	
@@ -73,6 +75,7 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < files.length; ++i) {
 			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
 		}
+		graph = new Network(this);
 		episode = 0;
 		loadData();
 	}
@@ -99,6 +102,7 @@ public class MainApplet extends PApplet{
 				text(character.getName(), mouseX, mouseY + 20, 200, 100);
 			}
 		}
+		graph.display();
 	}
 	
 	@Override
@@ -114,7 +118,14 @@ public class MainApplet extends PApplet{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (mouseTarget != null) {
-			mouseTarget.resetLocation();
+			if (getDistanceToCircle(mouseTarget) <= 550 / 2) {
+				mouseTarget.setInCircle(true);
+				graph.addCharacter(mouseTarget);
+			}
+			else {
+				mouseTarget.setInCircle(false);
+				graph.removeCharacter(mouseTarget);
+			}
 		}
 		mouseTarget = null;
 	}
@@ -163,13 +174,24 @@ public class MainApplet extends PApplet{
 	}
 	
 	/**
-	 * get distance between mouse position and character
+	 * get distance between character and character
 	 * @param character character to calculate distance
 	 * @return distance
 	 */
 	private long getDistance(Character character) {
 		int dis = (mouseX - character.getX()) * (mouseX - character.getX()) +
 				  (mouseY - character.getY()) * (mouseY - character.getY()); 
+		return Math.round(Math.sqrt((double)dis));
+	}
+	
+	/**
+	 * get distance between character and big circle
+	 * @param character character to calculate distance
+	 * @return distance
+	 */
+	private long getDistanceToCircle(Character character) {
+		int dis = (mouseX - 600) * (mouseX - 600) +
+				  (mouseY - 350) * (mouseY - 350);
 		return Math.round(Math.sqrt((double)dis));
 	}
 

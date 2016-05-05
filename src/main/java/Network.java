@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.Vector;
+
 import processing.core.PApplet;
 
 /**
@@ -11,13 +13,31 @@ import processing.core.PApplet;
 public class Network {
 	
 	private PApplet parent;
+	
+	private Vector<Character> characters;
 
 	public Network(PApplet parent) {
 		this.parent = parent;
+		characters = new Vector<>();
 	}
 
 	public void display() {
-		
+		for (Character character : characters) {
+			character.displayEdge();
+		}
+	}
+	
+	public void addCharacter(Character character) {
+		characters.add(character);
+	}
+	
+	public void removeCharacter(Character character) {
+		int index;
+		for (index = 0; index < characters.size(); ++index) {
+			if (characters.get(index) == character) {
+				characters.remove(index);
+			}
+		}
 	}
 	
 }
