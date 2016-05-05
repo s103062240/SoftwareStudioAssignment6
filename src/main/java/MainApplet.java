@@ -21,6 +21,7 @@ public class MainApplet extends PApplet{
 	private String[] files;
 
 	private Vector<Vector<Character>> networks;
+	private int episode;
 	
 	/**
 	 * setup
@@ -36,6 +37,7 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < files.length; ++i) {
 			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
 		}
+		episode = 0;
 		loadData();
 	}
 
@@ -43,7 +45,10 @@ public class MainApplet extends PApplet{
 	 * draw
 	 */
 	public void draw() {
-
+		background(255);
+		for (Character character : networks.get(episode)) {
+			character.display();
+		}
 	}
 
 	/**
@@ -57,8 +62,8 @@ public class MainApplet extends PApplet{
 				JSONObject item = nodes.getJSONObject(j);
 				String name = item.getString("name");
 				int color = unhex(item.getString("colour").substring(1));
-				int x = (j / 4) * 20 + 10;
-				int y = (j % 4) * 20 + 10;
+				int x = (j % 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20;
+				int y = (j / 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20;
 				networks.get(i).add(new Character(name, color, new Dimension(x, y), this));
 			}
 			JSONArray links = jsonObject.getJSONArray("links");

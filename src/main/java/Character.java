@@ -32,6 +32,8 @@ public class Character {
 
 	}
 	
+	public static int CIRCLESIZE = 45;
+	
 	private Vector<Edge> edges;
 	
 	private MainApplet parent;
@@ -58,7 +60,10 @@ public class Character {
 	}
 
 	public void display() {
-		
+		parent.fill(color);
+		parent.stroke(color);
+		parent.tint(255, 175);
+		parent.ellipse(currentLocation.width, currentLocation.height, CIRCLESIZE, CIRCLESIZE);
 	}
 	
 	/**
