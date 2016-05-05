@@ -62,8 +62,8 @@ public class MainApplet extends PApplet{
 				JSONObject item = nodes.getJSONObject(j);
 				String name = item.getString("name");
 				int color = unhex(item.getString("colour").substring(1));
-				int x = (j % 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20;
-				int y = (j / 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20;
+				int x = (j % 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20 + (j % 4)*10;
+				int y = (j / 4) * Character.CIRCLESIZE + Character.CIRCLESIZE + 20 + (j / 4)*10;
 				networks.get(i).add(new Character(name, color, new Dimension(x, y), this));
 			}
 			JSONArray links = jsonObject.getJSONArray("links");
