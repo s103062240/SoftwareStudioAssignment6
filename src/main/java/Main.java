@@ -16,6 +16,10 @@ public class Main extends JFrame{
 	
 	private final static int windowWidth = 1200, windowHeight = 670;
 	
+	/**
+	 * program entry
+	 * @param args command-line arguments
+	 */
 	public static void main(String [] args) {
 		
 		MainApplet applet = new MainApplet();

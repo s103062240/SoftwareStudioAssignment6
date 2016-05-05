@@ -11,12 +11,19 @@ import processing.core.PApplet;
 */
 public class Character {
 	
+	/**
+	 * a class to maintain edges 
+	 */
 	private static class Edge {
 		
 		private Character node;
-		
 		private int weight;
 		
+		/**
+		 * constructor
+		 * @param node target Character
+		 * @param weight edge weight
+		 */
 		private Edge(Character node, int weight) {
 			this.node = node;
 			this.weight = weight;
@@ -31,6 +38,12 @@ public class Character {
 	private String name;
 	private int color;
 
+	/**
+	 * constructor
+	 * @param name character name
+	 * @param color display color
+	 * @param parent PApplet to draw at
+	 */
 	public Character(String name, int color, MainApplet parent) {
 		this.name = name;
 		this.color = color;
@@ -42,6 +55,11 @@ public class Character {
 		
 	}
 	
+	/**
+	 * add an edge to destination, weight w
+	 * @param dst destination character
+	 * @param w	weight
+	 */
 	public void addEdge(Character dst, int w) {
 		edges.add(new Edge(dst, w));
 	}

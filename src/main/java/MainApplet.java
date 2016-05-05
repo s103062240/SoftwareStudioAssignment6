@@ -21,6 +21,9 @@ public class MainApplet extends PApplet{
 
 	private Vector<Vector<Character>> networks;
 	
+	/**
+	 * setup
+	 */
 	public void setup() {
 		size(width, height);
 		smooth();
@@ -35,10 +38,16 @@ public class MainApplet extends PApplet{
 		loadData();
 	}
 
+	/**
+	 * draw
+	 */
 	public void draw() {
 
 	}
 
+	/**
+	 * load json files
+	 */
 	private void loadData() {
 		for (int i = 0; i < 7; ++i) {
 			JSONObject jsonObject = loadJSONObject(files[i]);
