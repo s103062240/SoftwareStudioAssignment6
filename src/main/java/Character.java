@@ -42,6 +42,8 @@ public class Character {
 	private Dimension originalLocation;
 	private Dimension currentLocation;
 	
+	private boolean inCircle;
+	
 	private String name;
 	private int color;
 
@@ -57,9 +59,13 @@ public class Character {
 		this.parent = parent;
 		this.originalLocation = location;
 		this.currentLocation = location;
+		this.inCircle = false;
 		edges = new Vector<>();
 	}
 
+	/**
+	 * draw this character
+	 */
 	public void display() {
 		parent.fill(color);
 		parent.stroke(color);
@@ -85,6 +91,14 @@ public class Character {
 	}
 	
 	/**
+	 * set character\'s position
+	 * @param position position to set
+	 */
+	public void setLocation(Dimension position) {
+		currentLocation = position;
+	}
+	
+	/**
 	 * get current location x-axis
 	 * @return x-axis
 	 */
@@ -105,6 +119,22 @@ public class Character {
 	 */
 	public void resetLocation() {
 		currentLocation = originalLocation;
+	}
+
+	/**
+	 * check this character is in the middle circle
+	 * @return true if in circle
+	 */
+	public boolean isInCircle() {
+		return inCircle;
+	}
+
+	/**
+	 * set in circle
+	 * @param inCircle inCircle to set
+	 */
+	public void setInCircle(boolean inCircle) {
+		this.inCircle = inCircle;
 	}
 	
 }
