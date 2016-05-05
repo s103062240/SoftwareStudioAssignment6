@@ -49,6 +49,10 @@ public class MainApplet extends PApplet{
 		for (Character character : networks.get(episode)) {
 			character.display();
 		}
+		fill(255);
+		stroke(255, 220, 0);
+		strokeWeight(5.0f);
+		ellipse(600, 350, 550, 550);
 	}
 
 	/**
