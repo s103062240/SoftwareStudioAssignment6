@@ -3,6 +3,7 @@ package main.java;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.nio.charset.MalformedInputException;
 import java.util.Vector;
 
 import de.looksgood.ani.Ani;
@@ -17,7 +18,6 @@ public class Character {
 	/**
 	 * a class to maintain edges 
 	 */
-	Ani resetXAni, resetYAni;
 	private static class Edge {
 		
 		private Character node;
@@ -48,6 +48,7 @@ public class Character {
 	
 	private String name;
 	private int color;
+	Ani resetXAni, resetYAni;
 
 	/**
 	 * constructor
@@ -85,12 +86,20 @@ public class Character {
 	public void displayEdge() {
 		for (Edge item : edges) {
 			if (item.node.inCircle) {
-				parent.strokeWeight(1.0f);
-				parent.fill(0);
-				parent.line(getX(),
+				parent.noFill();
+				parent.stroke(255, 102, 0);
+				parent.strokeWeight(3);
+				parent.curve(
+							getX() - (MainApplet.getNetworkcenter().width - getX()) * 2,
+							getY() - (MainApplet.getNetworkcenter().height - getY()) * 2,
+							getX(),
 							getY(),
 							item.node.getX(),
-							item.node.getY());
+							item.node.getY(),
+							item.node.getX() - (MainApplet.getNetworkcenter().width - item.node.getX()) * 2,
+							item.node.getY() - (MainApplet.getNetworkcenter().height - item.node.getY()) * 2 
+							);
+				//parent.point(getX() - (MainApplet.getNetworkcenter().width - getX()) / 2, getY() - (MainApplet.getNetworkcenter().height - getY()) / 2);
 			}
 		}
 	}

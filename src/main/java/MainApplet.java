@@ -233,5 +233,11 @@ public class MainApplet extends PApplet{
 				  (y - networkCenter.height) * (y - networkCenter.height);
 		return Math.round(Math.sqrt((double)dis));
 	}
-
+	
+	public static int getRadius() {
+		return radius;
+	}
+	public static Dimension getNetworkcenter() {
+		return networkCenter;
+	}
 }
