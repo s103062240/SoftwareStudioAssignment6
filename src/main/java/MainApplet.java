@@ -2,12 +2,15 @@ package main.java;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ResourceBundle.Control;
 
 import controlP5.Button;
+import controlP5.CallbackEvent;
+import controlP5.CallbackListener;
 import controlP5.ControlEvent;
 import controlP5.ControlFont;
 import controlP5.ControlListener;
@@ -49,6 +52,8 @@ public class MainApplet extends PApplet{
 	 * setup
 	 */
 	public void setup() {
+		Ani.init(this);
+		
 		size(width, height);
 		smooth();
 		cp5 = new ControlP5(this);
@@ -62,10 +67,12 @@ public class MainApplet extends PApplet{
 		bAddAll.setColorActive(color(200,90,0));
 		bAddAll.setSize(200, 80);
 		bAddAll.setPosition(950, 30);
-		/*bAddAll.addListener(new ControlListener() {
-			public void controlEvent(ControlEvent event) {
+		/*bAddAll.addCallback(new CallbackListener() {
+			@Override
+			public void controlEvent(CallbackEvent event) {
 				// TODO Auto-generated method stub
 				MainApplet.this.graph.addAllCircleMember(MainApplet.this.episode);
+				System.out.println(event.toString());
 			}
 		});*/
 		
@@ -77,6 +84,23 @@ public class MainApplet extends PApplet{
 		bCleanAll.setColorActive(color(200,90,0));
 		bCleanAll.setSize(200, 80);
 		bCleanAll.setPosition(950, 140);
+		/*bCleanAll.addListener(new ControlListener() {
+			@Override
+			public void controlEvent(ControlEvent event) {
+				// TODO Auto-generated method stub
+				System.out.println("!");
+				System.out.println(event.toString());
+			}
+		});*/
+		/*bCleanAll.addCallback(new CallbackListener() {
+			@Override
+			public void controlEvent(CallbackEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getAction() == ControlP5.ACTION_RELEASE) {
+					MainApplet.this.graph.clearAllCircleMember(MainApplet.this.episode);
+				}
+			}
+		});*/
 		networks = new Vector<>();
 		for (int i = 0; i < 7; ++i) {
 			networks.add(new Vector<Character>());
@@ -89,7 +113,6 @@ public class MainApplet extends PApplet{
 		episode = 0;
 		loadData();
 		
-		Ani.init(this);
 	}
 
 	/**

@@ -17,6 +17,7 @@ public class Character {
 	/**
 	 * a class to maintain edges 
 	 */
+	Ani resetXAni, resetYAni;
 	private static class Edge {
 		
 		private Character node;
@@ -63,6 +64,9 @@ public class Character {
 		this.currentY = location.height;
 		this.inCircle = false;
 		edges = new Vector<>();
+		resetXAni = new Ani(this, 0.6f, "currentX", originalLocation.width, Ani.EXPO_OUT);
+		resetYAni = new Ani(this, 0.6f, "currentY", originalLocation.height, Ani.EXPO_OUT);
+
 	}
 
 	/**
@@ -113,6 +117,12 @@ public class Character {
 	 * @param position position to set
 	 */
 	public void setLocation(Dimension position) {
+		if(resetXAni.isPlaying()) {
+			resetXAni.end();
+		}
+		if(resetYAni.isPlaying()) {
+			resetYAni.end();
+		}
 		currentX = position.width;
 		currentY = position.height;
 	}
@@ -144,9 +154,10 @@ public class Character {
 		// Ani.to can't get "currentLocation.width" or "currentLocation.height"
 		
 		//Ani.to(this, 2.0f, "color", color + 50);
-		
-		Ani.to(this, 0.6f, "currentX", originalLocation.width, Ani.EXPO_OUT);
-		Ani.to(this, 0.6f, "currentY", originalLocation.height, Ani.EXPO_OUT);
+		resetXAni.setBegin(currentX);
+		resetYAni.setBegin(currentY);
+		resetXAni.start();
+		resetYAni.start();
 	}
 
 	/**

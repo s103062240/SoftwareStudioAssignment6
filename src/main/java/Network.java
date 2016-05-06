@@ -27,6 +27,7 @@ public class Network {
 		this.networks = networks;
 		this.radius = radius;
 		this.center = center;
+		this.size = 0;
 	}
 
 	public void display(int episode) {
@@ -46,12 +47,20 @@ public class Network {
 	}
 	
 	public void putIn(Character character, int episode) {
+		if(character.isInCircle() == true) {
+			reLocateCircleMember(episode);
+			return;
+		}
 		character.setInCircle(true);
 		this.size++;
 		reLocateCircleMember(episode);
 	}
 	
 	public void takeOut(Character character, int episode) {
+		if(character.isInCircle() == false) {
+			character.resetLocation();
+			return;
+		}
 		character.setInCircle(false);
 		character.resetLocation();
 		this.size--;
