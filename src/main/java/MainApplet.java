@@ -78,6 +78,8 @@ public class MainApplet extends PApplet{
 		graph = new Network(this, networks);
 		episode = 0;
 		loadData();
+		
+		Ani.init(this);
 	}
 
 	/**
@@ -125,6 +127,7 @@ public class MainApplet extends PApplet{
 			else {
 				mouseTarget.setInCircle(false);
 				graph.substractSize();
+				mouseTarget.resetLocation();
 			}
 		}
 		mouseTarget = null;

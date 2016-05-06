@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Vector;
 
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 
 /**
@@ -40,7 +41,7 @@ public class Character {
 	private MainApplet parent;
 	
 	private Dimension originalLocation;
-	private Dimension currentLocation;
+	private int currentX, currentY;
 	
 	private boolean inCircle;
 	
@@ -58,7 +59,8 @@ public class Character {
 		this.color = color;
 		this.parent = parent;
 		this.originalLocation = location;
-		this.currentLocation = location;
+		this.currentX = location.width;
+		this.currentY = location.height;
 		this.inCircle = false;
 		edges = new Vector<>();
 	}
@@ -70,7 +72,7 @@ public class Character {
 		parent.fill(color);
 		parent.stroke(color);
 		parent.tint(255, 175);
-		parent.ellipse(currentLocation.width, currentLocation.height, CIRCLESIZE, CIRCLESIZE);
+		parent.ellipse(currentX, currentY, CIRCLESIZE, CIRCLESIZE);
 	}
 	
 	/**
@@ -111,7 +113,8 @@ public class Character {
 	 * @param position position to set
 	 */
 	public void setLocation(Dimension position) {
-		currentLocation = position;
+		currentX = position.width;
+		currentY = position.height;
 	}
 	
 	/**
@@ -119,7 +122,7 @@ public class Character {
 	 * @return x-axis
 	 */
 	public int getX() {
-		return currentLocation.width;
+		return currentX;
 	}
 	
 	/**
@@ -127,14 +130,23 @@ public class Character {
 	 * @return y-axis
 	 */
 	public int getY() {
-		return currentLocation.height;
+		return currentY;
 	}
 	
 	/**
 	 * reset location, make location to original location
 	 */
 	public void resetLocation() {
-		currentLocation = originalLocation;
+		//currentLocation = originalLocation;
+		//Ani.to(this, 2.0f, "currentLocation.width", originalLocation.width);
+		//Ani.to(this, 2.0f, "currentLocation.height", originalLocation.height);
+		//                    ^^^^^^^^^^^^^^^^^^^^^^    
+		// Ani.to can't get "currentLocation.width" or "currentLocation.height"
+		
+		//Ani.to(this, 2.0f, "color", color + 50);
+		
+		Ani.to(this, 1f, "currentX", originalLocation.width, Ani.EXPO_OUT);
+		Ani.to(this, 1f, "currentY", originalLocation.height, Ani.EXPO_OUT);
 	}
 
 	/**
