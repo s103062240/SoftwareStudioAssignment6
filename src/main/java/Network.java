@@ -73,4 +73,20 @@ public class Network {
 		}
 	}
 	
+	public void clearAllCircleMember(int episode) {
+		for (Character character : networks.get(episode)) {
+			if(character.isInCircle()) {
+				character.setInCircle(false);
+				character.resetLocation();
+			}
+		}
+		this.size = 0;
+	}
+	public void addAllCircleMember(int episode) {
+		this.size = networks.get(episode).size();
+		for(Character character : networks.get(episode)) {
+			character.setInCircle(true);
+		}
+		this.reLocateCircleMember(episode);
+	}
 }

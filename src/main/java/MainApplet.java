@@ -8,7 +8,9 @@ import java.awt.event.MouseEvent;
 import java.util.ResourceBundle.Control;
 
 import controlP5.Button;
+import controlP5.ControlEvent;
 import controlP5.ControlFont;
+import controlP5.ControlListener;
 import controlP5.ControlP5;
 import de.looksgood.ani.Ani;
 
@@ -60,6 +62,12 @@ public class MainApplet extends PApplet{
 		bAddAll.setColorActive(color(200,90,0));
 		bAddAll.setSize(200, 80);
 		bAddAll.setPosition(950, 30);
+		/*bAddAll.addListener(new ControlListener() {
+			public void controlEvent(ControlEvent event) {
+				// TODO Auto-generated method stub
+				MainApplet.this.graph.addAllCircleMember(MainApplet.this.episode);
+			}
+		});*/
 		
 		Button bCleanAll = cp5.addButton("buttonCleanAll");
 		bCleanAll.setLabel("Clean All");
@@ -146,6 +154,12 @@ public class MainApplet extends PApplet{
 		}
 		else if (e.getKeyCode() == PConstants.LEFT) {
 			episode = (episode + 7 - 1) % 7;
+		}
+		else if (e.getKeyCode() == PConstants.UP) {
+			graph.addAllCircleMember(episode);
+		}
+		else if (e.getKeyCode() == PConstants.DOWN) {
+			graph.clearAllCircleMember(episode);
 		}
 	}
 
