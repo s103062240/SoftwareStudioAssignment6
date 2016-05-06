@@ -28,7 +28,7 @@ import processing.data.JSONObject;
 public class MainApplet extends PApplet{
 	
 	private final static int width = 1200, height = 650;
-	private final static int radius = 550;
+	private final static int radius = 275;
 	private final static Dimension networkCenter = new Dimension(600, 350);
 	
 	private final String pathPrefix = "res/";
@@ -92,7 +92,7 @@ public class MainApplet extends PApplet{
 		fill(255);
 		stroke(255, 220, 0);
 		strokeWeight(5.0f);
-		ellipse(networkCenter.width, networkCenter.height, radius, radius);
+		ellipse(networkCenter.width, networkCenter.height, radius*2, radius*2);
 		fill(0);
 		textSize(40);
 		text("Star Wars " + (episode + 1), 480, 10, 300, 100);
@@ -122,11 +122,11 @@ public class MainApplet extends PApplet{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (mouseTarget != null) {
-			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= radius / 2) {
-				graph.putIn(mouseTarget);
+			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= radius) {
+				graph.putIn(mouseTarget, episode);
 			}
 			else {
-				graph.takeOut(mouseTarget);
+				graph.takeOut(mouseTarget, episode);
 			}
 		}
 		mouseTarget = null;

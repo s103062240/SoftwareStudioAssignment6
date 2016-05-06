@@ -45,15 +45,32 @@ public class Network {
 		this.size = size;
 	}
 	
-	public void putIn(Character character) {
+	public void putIn(Character character, int episode) {
 		character.setInCircle(true);
 		this.size++;
+		reLocateCircleMember(episode);
 	}
 	
-	public void takeOut(Character character) {
+	public void takeOut(Character character, int episode) {
 		character.setInCircle(false);
 		character.resetLocation();
 		this.size--;
+		reLocateCircleMember(episode);
+	}
+	
+	public void reLocateCircleMember(int episode) {
+		int count = 0;
+		double angle;
+		for (Character character : networks.get(episode)) {
+			if (character.isInCircle()) {
+				angle =  2 * Math.PI * ((double)count / (double)this.size);
+				character.setLocation(new Dimension(
+							center.width + (int)(radius * Math.cos(angle)), 
+							center.height + (int)(radius * Math.sin(angle))
+							));
+				count++;
+			}
+		}
 	}
 	
 }
