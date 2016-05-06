@@ -145,8 +145,8 @@ public class Character {
 		
 		//Ani.to(this, 2.0f, "color", color + 50);
 		
-		Ani.to(this, 1f, "currentX", originalLocation.width, Ani.EXPO_OUT);
-		Ani.to(this, 1f, "currentY", originalLocation.height, Ani.EXPO_OUT);
+		Ani.to(this, 0.6f, "currentX", originalLocation.width, Ani.EXPO_OUT);
+		Ani.to(this, 0.6f, "currentY", originalLocation.height, Ani.EXPO_OUT);
 	}
 
 	/**

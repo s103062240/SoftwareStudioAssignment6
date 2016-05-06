@@ -39,11 +39,14 @@ public class Network {
 		this.size = size;
 	}
 	
-	public void addSize() {
+	public void putIn(Character character) {
+		character.setInCircle(true);
 		this.size++;
 	}
 	
-	public void substractSize() {
+	public void takeOut(Character character) {
+		character.setInCircle(false);
+		character.resetLocation();
 		this.size--;
 	}
 	

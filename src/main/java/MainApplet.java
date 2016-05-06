@@ -121,13 +121,10 @@ public class MainApplet extends PApplet{
 	public void mouseReleased(MouseEvent e) {
 		if (mouseTarget != null) {
 			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= 550 / 2) {
-				mouseTarget.setInCircle(true);
-				graph.addSize();
+				graph.putIn(mouseTarget);
 			}
 			else {
-				mouseTarget.setInCircle(false);
-				graph.substractSize();
-				mouseTarget.resetLocation();
+				graph.takeOut(mouseTarget);
 			}
 		}
 		mouseTarget = null;
