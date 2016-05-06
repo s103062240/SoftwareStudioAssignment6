@@ -1,5 +1,6 @@
 package main.java;
 
+import java.awt.Dimension;
 import java.util.Vector;
 
 import processing.core.PApplet;
@@ -18,9 +19,14 @@ public class Network {
 	
 	private Vector<Vector<Character>> networks;
 	
-	public Network(PApplet parent, Vector<Vector<Character>> networks) {
+	private int radius;
+	private Dimension center;
+	
+	public Network(PApplet parent, Vector<Vector<Character>> networks, int radius, Dimension center) {
 		this.parent = parent;
 		this.networks = networks;
+		this.radius = radius;
+		this.center = center;
 	}
 
 	public void display(int episode) {

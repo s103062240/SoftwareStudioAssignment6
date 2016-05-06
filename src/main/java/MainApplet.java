@@ -28,6 +28,8 @@ import processing.data.JSONObject;
 public class MainApplet extends PApplet{
 	
 	private final static int width = 1200, height = 650;
+	private final static int radius = 550;
+	private final static Dimension networkCenter = new Dimension(600, 350);
 	
 	private final String pathPrefix = "res/";
 	private String[] files;
@@ -75,7 +77,7 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < files.length; ++i) {
 			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
 		}
-		graph = new Network(this, networks);
+		graph = new Network(this, networks, radius, networkCenter);
 		episode = 0;
 		loadData();
 		
@@ -90,7 +92,7 @@ public class MainApplet extends PApplet{
 		fill(255);
 		stroke(255, 220, 0);
 		strokeWeight(5.0f);
-		ellipse(600, 350, 550, 550);
+		ellipse(networkCenter.width, networkCenter.height, radius, radius);
 		fill(0);
 		textSize(40);
 		text("Star Wars " + (episode + 1), 480, 10, 300, 100);
@@ -120,7 +122,7 @@ public class MainApplet extends PApplet{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (mouseTarget != null) {
-			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= 550 / 2) {
+			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= radius / 2) {
 				graph.putIn(mouseTarget);
 			}
 			else {
@@ -190,8 +192,8 @@ public class MainApplet extends PApplet{
 	 * @return distance
 	 */
 	private long getDistanceToCircle(Character character, int x, int y) {
-		int dis = (x - 600) * (x - 600) +
-				  (y - 350) * (y - 350);
+		int dis = (x - networkCenter.width) * (x - networkCenter.width) +
+				  (y - networkCenter.height) * (y - networkCenter.height);
 		return Math.round(Math.sqrt((double)dis));
 	}
 
