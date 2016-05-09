@@ -7,6 +7,8 @@ import java.util.Vector;
 import controlP5.Button;
 import controlP5.ControlFont;
 import controlP5.ControlP5;
+import ddf.minim.AudioPlayer;
+import ddf.minim.Minim;
 import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -36,6 +38,8 @@ public class MainApplet extends PApplet{
 
 	private ControlP5 cp5;
 	private Button bAddAll, bCleanAll;
+	Minim minim;
+	AudioPlayer song;
 
 	private Character mouseTarget;
 
@@ -78,7 +82,11 @@ public class MainApplet extends PApplet{
 		graph = new Network(networks, radius, networkCenter);
 		episode = 0;
 		loadData();
-
+		
+		minim = new Minim(this);
+		song = minim.loadFile("bgm.mp3");
+		song.play();
+		song.loop();
 	}
 
 	/**
