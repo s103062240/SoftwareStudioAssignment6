@@ -108,8 +108,11 @@ public class MainApplet extends PApplet{
 		}
 		for (Character character : networks.get(episode)) {
 			if (getDistance(character, mouseX, mouseY) <= Character.CIRCLESIZE / 2) {
+				fill(color(200, 200, 0));
+				noStroke();
+				rect(mouseX + 10, mouseY + 15, 10 + 15 * character.getName().length(), 30, 10);
 				fill(0);
-				textSize(28);
+				textSize(20);
 				text(character.getName(), mouseX + 20, mouseY + 20, 200, 50);
 			}
 		}
