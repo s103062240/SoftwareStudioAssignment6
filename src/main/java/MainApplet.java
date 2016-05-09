@@ -1,65 +1,57 @@
 package main.java;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.util.ResourceBundle.Control;
-
-import controlP5.Button;
-import controlP5.CallbackEvent;
-import controlP5.CallbackListener;
-import controlP5.ControlEvent;
-import controlP5.ControlFont;
-import controlP5.ControlListener;
-import controlP5.ControlP5;
-import de.looksgood.ani.Ani;
-
 import java.util.Vector;
 
+import controlP5.Button;
+import controlP5.ControlFont;
+import controlP5.ControlP5;
+import de.looksgood.ani.Ani;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
+import processing.event.MouseEvent;
 
 /**
 * This class is for sketching outcome using Processing
-* You can do major UI control and some visualization in this class.  
+* You can do major UI control and some visualization in this class.
 */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
-	
+
 	private final static int width = 1200, height = 650;
 	private final static int radius = 275;
 	private final static Dimension networkCenter = new Dimension(600, 350);
-	
+
 	private final String pathPrefix = "res/";
 	private String[] files;
 
 	private Network graph;
-	
+
 	private Vector<Vector<Character>> networks;
 	private int episode;
-	
-	private ControlP5 cp5; 	
-	
+
+	private ControlP5 cp5;
+	private Button bAddAll, bCleanAll;
+
 	private Character mouseTarget;
-	
+
 	/**
 	 * setup
 	 */
-	public void setup() {
+	@Override
+    public void setup() {
 		Ani.init(this);
-		
+
 		size(width, height);
 		smooth();
 		cp5 = new ControlP5(this);
 		PFont pFont = createFont(getFont().getName(), 32, true);
 		ControlFont cFont = new ControlFont(pFont, 32);
-		Button bAddAll = cp5.addButton("buttonAddAll");
+		bAddAll = cp5.addButton("buttonAddAll");
 		bAddAll.setLabel("Add All");
 		bAddAll.getCaptionLabel().setFont(cFont);
 		bAddAll.setColorBackground(color(120,120,120));
@@ -67,16 +59,7 @@ public class MainApplet extends PApplet{
 		bAddAll.setColorActive(color(200,90,0));
 		bAddAll.setSize(200, 80);
 		bAddAll.setPosition(950, 30);
-		/*bAddAll.addCallback(new CallbackListener() {
-			@Override
-			public void controlEvent(CallbackEvent event) {
-				// TODO Auto-generated method stub
-				MainApplet.this.graph.addAllCircleMember(MainApplet.this.episode);
-				System.out.println(event.toString());
-			}
-		});*/
-		
-		Button bCleanAll = cp5.addButton("buttonCleanAll");
+		bCleanAll = cp5.addButton("buttonCleanAll");
 		bCleanAll.setLabel("Clean All");
 		bCleanAll.getCaptionLabel().setFont(cFont);
 		bCleanAll.setColorBackground(color(120,120,120));
@@ -84,23 +67,6 @@ public class MainApplet extends PApplet{
 		bCleanAll.setColorActive(color(200,90,0));
 		bCleanAll.setSize(200, 80);
 		bCleanAll.setPosition(950, 140);
-		/*bCleanAll.addListener(new ControlListener() {
-			@Override
-			public void controlEvent(ControlEvent event) {
-				// TODO Auto-generated method stub
-				System.out.println("!");
-				System.out.println(event.toString());
-			}
-		});*/
-		/*bCleanAll.addCallback(new CallbackListener() {
-			@Override
-			public void controlEvent(CallbackEvent event) {
-				// TODO Auto-generated method stub
-				if(event.getAction() == ControlP5.ACTION_RELEASE) {
-					MainApplet.this.graph.clearAllCircleMember(MainApplet.this.episode);
-				}
-			}
-		});*/
 		networks = new Vector<>();
 		for (int i = 0; i < 7; ++i) {
 			networks.add(new Vector<Character>());
@@ -109,16 +75,17 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < files.length; ++i) {
 			files[i] = pathPrefix + "starwars-episode-" + (i + 1) + "-interactions.json";
 		}
-		graph = new Network(this, networks, radius, networkCenter);
+		graph = new Network(networks, radius, networkCenter);
 		episode = 0;
 		loadData();
-		
+
 	}
 
 	/**
 	 * draw
 	 */
-	public void draw() {
+	@Override
+    public void draw() {
 		background(255);
 		fill(255);
 		stroke(255, 220, 0);
@@ -127,21 +94,30 @@ public class MainApplet extends PApplet{
 		fill(0);
 		textSize(40);
 		text("Star Wars " + (episode + 1), 480, 10, 300, 100);
+		graph.display(episode);
 		for (Character character : networks.get(episode)) {
 			character.display();
 		}
 		for (Character character : networks.get(episode)) {
 			if (getDistance(character, mouseX, mouseY) <= Character.CIRCLESIZE / 2) {
 				fill(0);
-				textSize(20);
-				text(character.getName(), mouseX, mouseY + 20, 200, 100);
+				textSize(28);
+				text(character.getName(), mouseX + 20, mouseY + 20, 200, 50);
 			}
 		}
-		graph.display(episode);
 	}
-	
+
+	/**
+	 * mouse pressed event, handle character position and buttons
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
+	    if (bAddAll.isPressed()) {
+            graph.addAllCircleMember(episode);
+	    }
+	    if (bCleanAll.isPressed()) {
+            graph.clearAllCircleMember(episode);
+	    }
 		for (Character character : networks.get(episode)) {
 			if (getDistance(character, mouseX, mouseY) <= Character.CIRCLESIZE / 2) {
 				mouseTarget = character;
@@ -150,6 +126,9 @@ public class MainApplet extends PApplet{
 		}
 	}
 
+	/**
+	 * mouse released event, handle character position
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (mouseTarget != null) {
@@ -163,6 +142,9 @@ public class MainApplet extends PApplet{
 		mouseTarget = null;
 	}
 
+	/**
+	 * mouse dragged event, handle character position
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (mouseTarget != null) {
@@ -170,6 +152,9 @@ public class MainApplet extends PApplet{
 		}
 	}
 
+	/**
+	 * key pressed event, handle episode switch
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == PConstants.RIGHT) {
@@ -211,32 +196,45 @@ public class MainApplet extends PApplet{
 			}
 		}
 	}
-	
+
 	/**
-	 * get distance between character and character
+	 * get distance between character and mouse position
 	 * @param character character to calculate distance
+	 * @param x mouse x-axis
+	 * @param y mouse y-axis
 	 * @return distance
 	 */
 	private long getDistance(Character character, int x, int y) {
 		int dis = (x - character.getX()) * (x - character.getX()) +
-				  (y - character.getY()) * (y - character.getY()); 
-		return Math.round(Math.sqrt((double)dis));
+				  (y - character.getY()) * (y - character.getY());
+		return Math.round(Math.sqrt(dis));
 	}
-	
+
 	/**
-	 * get distance between character and big circle
+	 * get distance between character and the big circle
 	 * @param character character to calculate distance
+	 * @param x mouse x-axis
+	 * @param y mouse y-axis
 	 * @return distance
 	 */
 	private long getDistanceToCircle(Character character, int x, int y) {
 		int dis = (x - networkCenter.width) * (x - networkCenter.width) +
 				  (y - networkCenter.height) * (y - networkCenter.height);
-		return Math.round(Math.sqrt((double)dis));
+		return Math.round(Math.sqrt(dis));
 	}
-	
+
+	/**
+	 * get radius
+	 * @return radius
+	 */
 	public static int getRadius() {
 		return radius;
 	}
+
+	/**
+	 * get network center
+	 * @return network center
+	 */
 	public static Dimension getNetworkcenter() {
 		return networkCenter;
 	}

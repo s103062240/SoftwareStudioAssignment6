@@ -1,28 +1,24 @@
 package main.java;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.nio.charset.MalformedInputException;
 import java.util.Vector;
 
 import de.looksgood.ani.Ani;
-import processing.core.PApplet;
 
 /**
 * This class is used to store states of the characters in the program.
 * You will need to declare other variables depending on your implementation.
 */
 public class Character {
-	
+
 	/**
-	 * a class to maintain edges 
+	 * a class to maintain edges
 	 */
 	private static class Edge {
-		
+
 		private Character node;
 		private int weight;
-		
+
 		/**
 		 * constructor
 		 * @param node target Character
@@ -34,18 +30,18 @@ public class Character {
 		}
 
 	}
-	
+
 	public static int CIRCLESIZE = 45;
-	
+
 	private Vector<Edge> edges;
-	
+
 	private MainApplet parent;
-	
+
 	private Dimension originalLocation;
 	private int currentX, currentY;
-	
+
 	private boolean inCircle;
-	
+
 	private String name;
 	private int color;
 	Ani resetXAni, resetYAni;
@@ -79,7 +75,7 @@ public class Character {
 		parent.tint(255, 175);
 		parent.ellipse(currentX, currentY, CIRCLESIZE, CIRCLESIZE);
 	}
-	
+
 	/**
 	 * draw link between another characters
 	 */
@@ -88,7 +84,7 @@ public class Character {
 			if (item.node.inCircle) {
 				parent.noFill();
 				parent.stroke(255, 102, 0);
-				parent.strokeWeight(3);
+				parent.strokeWeight(getStrokeWeight(item.weight));
 				parent.curve(
 							getX() - (MainApplet.getNetworkcenter().width - getX()) * 2,
 							getY() - (MainApplet.getNetworkcenter().height - getY()) * 2,
@@ -97,14 +93,23 @@ public class Character {
 							item.node.getX(),
 							item.node.getY(),
 							item.node.getX() - (MainApplet.getNetworkcenter().width - item.node.getX()) * 2,
-							item.node.getY() - (MainApplet.getNetworkcenter().height - item.node.getY()) * 2 
-							);
+							item.node.getY() - (MainApplet.getNetworkcenter().height - item.node.getY()) * 2
+				);
 				//parent.point(getX() - (MainApplet.getNetworkcenter().width - getX()) / 2, getY() - (MainApplet.getNetworkcenter().height - getY()) / 2);
 			}
 		}
 	}
-	
+
 	/**
+	 * get stroke weight according to weight of edge
+	 * @param weight edge weight
+	 * @return stroke weight
+	 */
+	private float getStrokeWeight(int weight) {
+	    return 2.0f + weight / 3;
+    }
+
+    /**
 	 * add an edge to destination, weight w
 	 * @param dst destination character
 	 * @param w	weight
@@ -112,7 +117,7 @@ public class Character {
 	public void addEdge(Character dst, int w) {
 		edges.add(new Edge(dst, w));
 	}
-	
+
 	/**
 	 * return character's name
 	 * @return name of character
@@ -120,7 +125,7 @@ public class Character {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * set character\'s position
 	 * @param position position to set
@@ -135,7 +140,7 @@ public class Character {
 		currentX = position.width;
 		currentY = position.height;
 	}
-	
+
 	/**
 	 * get current location x-axis
 	 * @return x-axis
@@ -143,7 +148,7 @@ public class Character {
 	public int getX() {
 		return currentX;
 	}
-	
+
 	/**
 	 * get current location y-axis
 	 * @return y-axis
@@ -151,7 +156,7 @@ public class Character {
 	public int getY() {
 		return currentY;
 	}
-	
+
 	/**
 	 * reset location, make location to original location
 	 */
@@ -159,9 +164,9 @@ public class Character {
 		//currentLocation = originalLocation;
 		//Ani.to(this, 2.0f, "currentLocation.width", originalLocation.width);
 		//Ani.to(this, 2.0f, "currentLocation.height", originalLocation.height);
-		//                    ^^^^^^^^^^^^^^^^^^^^^^    
+		//                    ^^^^^^^^^^^^^^^^^^^^^^
 		// Ani.to can't get "currentLocation.width" or "currentLocation.height"
-		
+
 		//Ani.to(this, 2.0f, "color", color + 50);
 		resetXAni.setBegin(currentX);
 		resetYAni.setBegin(currentY);
@@ -184,5 +189,5 @@ public class Character {
 	public void setInCircle(boolean inCircle) {
 		this.inCircle = inCircle;
 	}
-	
+
 }
