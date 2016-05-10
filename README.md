@@ -1,20 +1,29 @@
-# Software Studio Assignment 6
+Software Studio Assignment 6
+============================
 
-## Notes
-+ You will have to import the libraries on your own. All the libraries are provided on iLMS.
-+ Even you followed the design TA shown in the video, you still have to explain the control of the program in the next section.
+Design
+------
+A Java Program to show relationships of characters in Star Wars eposide 1~7
 
-## Explanation of the Design
-Explain your design in this section.  
-Example:
-### Operation
-+ Clicking on the button "Add All": users can add all the characters into network to be analyzed.
-+ Clicking on the button "Clear": users can remove all the characters from network.
-+ Hovering on the character: the name of the character will be revealed.
-+ By dragging the little circle and drop it in the big circle, the character will be added to the network.
-+ By pressing key 1~7 on the keyboard, users can switch between episodes.
-+ ...etc.
+Library used: [Ani][1], [controlP5][2], [Minim][3], [Processing][4]
 
-### Visualization
-+ The width of each link is visualized based on the value of the link.
-+ ...etc.
+Running Example:
+![Running Example](http://i.imgur.com/pPOdEoA.png)
+
+Operation
+---------
++ You can press `Left Arrow Key` or `Right Arrow Key` to switch between episodes.
++ When you move your mouse to a character(small circles on the left), a popup message with name will show.
++ Drag a character into the circle to add it into network.
++ Drag a character out of the circle to remove it from network.
++ Press button `Add All` to add all characters to the network.
++ Press button `Clean All` to clean all characters from the network.
+
+Visualization
+-------------
++ The width of each link depends on times characters interactive in movie.
+
+[1]:http://benedikt-gross.de/libraries/Ani
+[2]:http://www.sojamo.de/libraries/controlP5
+[3]:http://code.compartmental.net/minim/index.html
+[4]:http://processing.org
