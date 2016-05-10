@@ -43,13 +43,15 @@ public class MainApplet extends PApplet{
 
 	private Character mouseTarget;
 
+	private float networkCircleStroke;
+
 	/**
 	 * setup
 	 */
 	@Override
     public void setup() {
 		Ani.init(this);
-
+		networkCircleStroke = 5.0f;
 		size(width, height);
 		smooth();
 		cp5 = new ControlP5(this);
@@ -82,7 +84,7 @@ public class MainApplet extends PApplet{
 		graph = new Network(networks, radius, networkCenter);
 		episode = 0;
 		loadData();
-		
+
 		minim = new Minim(this);
 		song = minim.loadFile("bgm.mp3");
 		song.play();
@@ -97,8 +99,9 @@ public class MainApplet extends PApplet{
 		background(255);
 		fill(255);
 		stroke(255, 220, 0);
-		strokeWeight(5.0f);
+		strokeWeight(networkCircleStroke);
 		ellipse(networkCenter.width, networkCenter.height, radius*2, radius*2);
+		strokeWeight(5.0f);
 		fill(0);
 		textSize(40);
 		text("Star Wars " + (episode + 1), 480, 10, 300, 100);
@@ -160,6 +163,12 @@ public class MainApplet extends PApplet{
 	public void mouseDragged(MouseEvent e) {
 		if (mouseTarget != null) {
 			mouseTarget.setLocation(new Dimension(e.getX(), e.getY()));
+			if (getDistanceToCircle(mouseTarget, e.getX(), e.getY()) <= radius) {
+			    networkCircleStroke = 10.0f;
+			}
+			else {
+			    networkCircleStroke = 5.0f;
+			}
 		}
 	}
 
