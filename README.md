@@ -10,6 +10,13 @@ Library used: [Ani][1], [controlP5][2], [Minim][3], [Processing][4]
 Running Example:
 ![Running Example](http://i.imgur.com/pPOdEoA.png)
 
+Explanation
+-----------
++ Small circle on the left of the windows are the characters in Star Wars.
++ Whenever a character is added to the network, it will show all relationships between other characters in network.
++ When two characters interactive in movie, there is a line to link them together.
++ More thick line, more times of interactions.
+
 Operation
 ---------
 + You can press `Left Arrow Key` or `Right Arrow Key` to switch between episodes.
@@ -21,7 +28,10 @@ Operation
 
 Visualization
 -------------
++ When a character move into the network circle, its stroke weight increase.
 + The width of each link depends on times characters interactive in movie.
++ Use trigonometric functions to calculate character's position in network.
++ A nice song to enjoy(?).
 
 [1]:http://benedikt-gross.de/libraries/Ani
 [2]:http://www.sojamo.de/libraries/controlP5
